@@ -4,10 +4,10 @@ call plug#begin('~/.vim/plugged')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Valloric/YouCompleteMe'
 Plug 'vim-airline/vim-airline'
-	set laststatus=2
-	let g:airline_theme='base16'
-	let g:airline_left_sep = ''
-	let g:airline_right_sep = ''
+    set laststatus=2
+    let g:airline_theme='base16'
+    let g:airline_left_sep = ''
+    let g:airline_right_sep = ''
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdcommenter'
