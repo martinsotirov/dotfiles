@@ -12,17 +12,19 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-ctrlspace/vim-ctrlspace'
-    map <C-e> :CtrlSpace<CR>
+    " map <C-e> :CtrlSpace<CR>
 Plug 'scrooloose/nerdtree'
     map <C-h> :NERDTreeToggle<CR>
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif""""
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
 """ General Settings ==============
 set number
+set relativenumber
 set cursorline
 set clipboard=unnamed
 set hidden
@@ -30,12 +32,12 @@ set tabstop=4 shiftwidth=4 expandtab
 set hlsearch is ignorecase scs
 nmap <silent> <C-n> :noh<CR>
 colorscheme base16-eighties
+hi CursorLineNR cterm=bold ctermfg=100
 
 """ Shortcuts =====================
-nnoremap <c-d> viw
+"nnoremap <c-d> viw
 let mapleader = ","
 let maplocalleader = ","
-nnoremap <leader><leader> I"<esc>
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 iabbrev @@ martin@evil.ninja
@@ -47,6 +49,8 @@ inoremap jk <esc>
 inoremap <esc> <nop>
 inoremap ' ''<Left>
 inoremap " ""<Left>
+
+" Line shifting with Opt+j/k
 nnoremap ∆ :m .+1<CR>==
 nnoremap ˚ :m .-2<CR>==
 inoremap ∆ <Esc>:m .+1<CR>==gi
@@ -54,8 +58,14 @@ inoremap ˚ <Esc>:m .-2<CR>==gi
 vnoremap ∆ :m '>+1<CR>gv=gv
 vnoremap ˚ :m '<-2<CR>gv=gv''
 
-""" Autocommands ==================
+" Classic Tab indents
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 
+""" Autocommands ==================
 :filetype on
 :autocmd FileType javascript nnoremap <buffer> <localleader>c I//jk
 :autocmd FileType javascript iabbrev <buffer> iff if ()<left>
