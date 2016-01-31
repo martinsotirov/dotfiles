@@ -24,6 +24,7 @@ call plug#end()
 """ General Settings ==============
 set number
 set cursorline
+set clipboard=unnamed
 set hidden
 set tabstop=4 shiftwidth=4 expandtab
 set hlsearch is ignorecase scs
