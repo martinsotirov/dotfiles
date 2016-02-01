@@ -31,14 +31,10 @@ Plug 'Shougo/neocomplete.vim'
     " Plugin key-mappings.
     inoremap <expr><C-g>     neocomplete#undo_completion()
     inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-    " Recommended key-mappings.
     " <CR>: close popup and save indent.
     inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
     function! s:my_cr_function()
-      return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-      " For no inserting <CR> key.
-      "return pumvisible() ? "\<C-y>" : "\<CR>"
+      return pumvisible() ? "\<C-y>" : "\<CR>"
     endfunction
     " <TAB>: completion.
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -46,36 +42,27 @@ Plug 'Shougo/neocomplete.vim'
     inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
     inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
     " Close popup by <Space>.
-    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-    " AutoComplPop like behavior.
-    "let g:neocomplete#enable_auto_select = 1
-
-    " Shell like behavior(not recommended).
-    "set completeopt+=longest
-    "let g:neocomplete#enable_auto_select = 1
-    "let g:neocomplete#disable_auto_complete = 1
-    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+    inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
     " Enable omni completion.
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    set omnifunc=syntaxcomplete#Complete
+    "autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    "autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+    "autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
     " Enable heavy omni completion.
     if !exists('g:neocomplete#sources#omni#input_patterns')
       let g:neocomplete#sources#omni#input_patterns = {}
     endif
-    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+    let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
-    " For perlomni.vim setting.
-    " https://github.com/c9s/perlomni.vim
-    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 Plug 'Shougo/neosnippet.vim'
+    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+    smap <C-k> <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k> <Plug>(neosnippet_expand_target)
+Plug 'Shougo/neosnippet-snippets'
+Plug 'shawncplus/phpcomplete.vim'
 Plug 'vim-airline/vim-airline'
     set laststatus=2
     let g:airline_theme='base16'
@@ -83,11 +70,26 @@ Plug 'vim-airline/vim-airline'
     let g:airline_right_sep = ''
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/syntastic'
+    let g:syntastic_error_symbol = '✗'
+    let g:syntastic_warning_symbol = '!'
+    let g:syntastic_style_error_symbol = 'S✗'
+    let g:syntastic_style_warning_symbol = 'S!'
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+    let g:syntastic_aggregate_errors = 1
+    let g:syntastic_php_checkers = ['php']
+    let g:syntastic_javascript_checkers = ['eslint']
+    let g:syntastic_javascript_eslint_exec = 'eslint_d'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-ctrlspace/vim-ctrlspace'
     " map <C-e> :CtrlSpace<CR>
 Plug 'scrooloose/nerdtree'
-    map <C-h> :NERDTreeToggle<CR>
+    map <C-n><C-n> :NERDTreeToggle<CR>
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif""""
@@ -106,21 +108,27 @@ Plug 'mattn/emmet-vim'
 
 " Language Specific
 Plug 'StanAngeloff/php.vim'
+Plug 'tpope/vim-unimpaired'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
+    nmap <leader>t :TagbarOpenAutoClose<CR>
 
 call plug#end()
 
 """ General Settings ==============
 set number
+set mouse=a
 set relativenumber
 set cursorline
 set clipboard=unnamed
 set hidden
 set tabstop=4 shiftwidth=4 expandtab
 set hlsearch is ignorecase scs
-set omnifunc=syntaxcomplete#Complete
+"set tags+=tags;~
 nmap <silent> <C-n> :noh<CR>
 colorscheme base16-eighties
 hi CursorLineNR cterm=bold ctermfg=100
+"set path=$PWD/**
 
 """ Shortcuts =====================
 "nnoremap <c-d> viw
@@ -135,7 +143,8 @@ nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 vnoremap ' di'<esc>pa'<esc>
 inoremap jk <esc>
 inoremap <esc> <nop>
-iabbrev </ </<C-X><C-O>
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+"iabbrev </ </<C-X><C-O>
 "inoremap ' ''<Left>
 "inoremap " ""<Left>
 
@@ -156,6 +165,12 @@ nnoremap <S-Tab> <<_
 inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+
+" Switch splits easier
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 """ Autocommands ==================
 :filetype on
