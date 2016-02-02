@@ -14,13 +14,8 @@ Plug 'Shougo/neocomplete.vim'
     " Set minimum syntax keyword length.
     let g:neocomplete#sources#syntax#min_keyword_length = 3
     let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+    let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
 
-    " Define dictionary.
-    let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
 
     " Define keyword.
     if !exists('g:neocomplete#keyword_patterns')
@@ -34,7 +29,7 @@ Plug 'Shougo/neocomplete.vim'
     " <CR>: close popup and save indent.
     inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
     function! s:my_cr_function()
-      return pumvisible() ? "\<C-y>" : "\<CR>"
+        return pumvisible() ? "\<C-y>" : "\<CR>"
     endfunction
     " <TAB>: completion.
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -46,14 +41,10 @@ Plug 'Shougo/neocomplete.vim'
 
     " Enable omni completion.
     set omnifunc=syntaxcomplete#Complete
-    "autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    "autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-    "autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
     " Enable heavy omni completion.
     if !exists('g:neocomplete#sources#omni#input_patterns')
-      let g:neocomplete#sources#omni#input_patterns = {}
+        let g:neocomplete#sources#omni#input_patterns = {}
     endif
     let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
@@ -110,6 +101,7 @@ Plug 'mattn/emmet-vim'
 Plug 'StanAngeloff/php.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'ludovicchabant/vim-gutentags'
+    let g:gutentags_tagfile='.git/tags'
 Plug 'majutsushi/tagbar'
     nmap <leader>t :TagbarOpenAutoClose<CR>
 
@@ -124,14 +116,12 @@ set clipboard=unnamed
 set hidden
 set tabstop=4 shiftwidth=4 expandtab
 set hlsearch is ignorecase scs
-"set tags+=tags;~
 nmap <silent> <C-n> :noh<CR>
 colorscheme base16-eighties
 hi CursorLineNR cterm=bold ctermfg=100
 "set path=$PWD/**
 
 """ Shortcuts =====================
-"nnoremap <c-d> viw
 let mapleader = ","
 let maplocalleader = ","
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
@@ -144,9 +134,6 @@ vnoremap ' di'<esc>pa'<esc>
 inoremap jk <esc>
 inoremap <esc> <nop>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-"iabbrev </ </<C-X><C-O>
-"inoremap ' ''<Left>
-"inoremap " ""<Left>
 
 " Classic backspace
 set backspace=indent,eol,start
@@ -172,7 +159,3 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-""" Autocommands ==================
-:filetype on
-:autocmd FileType javascript nnoremap <buffer> <localleader>c I//jk
-:autocmd FileType javascript iabbrev <buffer> iff if ()<left>
