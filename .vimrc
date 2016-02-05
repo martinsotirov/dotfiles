@@ -3,7 +3,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'ctrlpvim/ctrlp.vim'
     let g:ctrlp_working_path_mode = 'ca'
-"Plug 'Valloric/YouCompleteMe'
+Plug 'godlygeek/tabular'
 Plug 'Shougo/neocomplete.vim'
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
@@ -134,6 +134,10 @@ vnoremap ' di'<esc>pa'<esc>
 inoremap jk <esc>
 inoremap <esc> <nop>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+" Tabular
+nnoremap <leader>a :Tabularize /
+vnoremap <leader>a :Tabularize /
 
 " Classic backspace
 set backspace=indent,eol,start
