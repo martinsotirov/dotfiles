@@ -117,6 +117,7 @@ set hidden
 set tabstop=4 shiftwidth=4 expandtab
 set hlsearch is ignorecase scs
 nmap <silent> <C-n> :noh<CR>
+set t_Co=256
 colorscheme base16-eighties
 hi CursorLineNR cterm=bold ctermfg=100
 "set path=$PWD/**
