@@ -1,8 +1,6 @@
-""" Plugins ========================
+"" Plugins ========================
 call plug#begin('~/.vim/plugged')
 
-Plug 'ctrlpvim/ctrlp.vim'
-    let g:ctrlp_working_path_mode = 'ca'
 Plug 'godlygeek/tabular'
 Plug 'Shougo/neocomplete.vim'
     " Disable AutoComplPop.
@@ -15,7 +13,6 @@ Plug 'Shougo/neocomplete.vim'
     let g:neocomplete#sources#syntax#min_keyword_length = 3
     let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
     let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
-
 
     " Define keyword.
     if !exists('g:neocomplete#keyword_patterns')
@@ -76,14 +73,37 @@ Plug 'scrooloose/syntastic'
     let g:syntastic_php_checkers = ['php']
     let g:syntastic_javascript_checkers = ['eslint']
     let g:syntastic_javascript_eslint_exec = 'eslint_d'
+    "let g:syntastic_go_checkers = ['gometalinter']
+    let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+    let syntastic_mode_map = { 'passive_filetypes': ['html'] }
+    let g:syntastic_cpp_compiler = 'clang++'
+    let g:syntastic_cpp_compiler_options = ' -std=c++14 -stdlib=libc++'
+
+function! SyntasticESlintChecker()
+    let l:npm_bin = ''
+    let l:eslint= 'eslint'
+
+    if executable('npm')
+        let l:npm_bin = split(system('npm bin'), '\n')[0]
+    endif
+
+    if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
+        let l:eslint = l:npm_bin . '/eslint'
+    endif
+
+    let b:syntastic_javascript_eslint_exec = l:eslint
+endfunction
+
+autocmd FileType javascript :call SyntasticESlintChecker()
+
 Plug 'scrooloose/nerdcommenter'
-Plug 'vim-ctrlspace/vim-ctrlspace'
-    " map <C-e> :CtrlSpace<CR>
 Plug 'scrooloose/nerdtree'
     map <C-n><C-n> :NERDTreeToggle<CR>
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif""""
+    let g:NERDTreeIgnore=['node_modules']
+    let g:NERDTreeWinSize=23
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'Raimondi/delimitMate'
@@ -100,10 +120,62 @@ Plug 'mattn/emmet-vim'
 " Language Specific
 Plug 'StanAngeloff/php.vim'
 Plug 'tpope/vim-unimpaired'
-Plug 'ludovicchabant/vim-gutentags'
-    let g:gutentags_tagfile='.git/tags'
+"Plug 'ludovicchabant/vim-gutentags'
+    "let g:gutentags_tagfile='.git/tags'
 Plug 'majutsushi/tagbar'
-    nmap <leader>t :TagbarOpenAutoClose<CR>
+    nmap <leader>te :TagbarOpenAutoClose<CR>
+Plug 'joonty/vdebug'
+    let g:vdebug_options = {
+    \   "path_maps": {}
+    \}
+    let g:vdebug_options["break_on_open"] = 0
+    "let g:vdebug_options["path_maps"]['/var/www/server/']='/Users/msotirov/Sites/inventory/server/'
+    "let g:vdebug_options["path_maps"]['/var/www/nawik_de/src/']='/Users/msotirov/Sites/nawik/nawik_de/src/'
+    let g:vdebug_options["path_maps"]['/var/www/src/']='/Users/msotirov/Sites/pubnative2/src/'
+    let g:vdebug_keymap = {
+    \   'run'            : "<Leader>r",
+    \   'close'          : "<Leader>c",
+    \   'set_breakpoint' : "<Leader>b"
+    \}
+
+    "let g:vdebug_keymap = {
+    "\    "run" : "<F5>",
+    "\    "run_to_cursor" : "<F9>",
+    "\    "step_over" : "<F2>",
+    "\    "step_into" : "<F3>",
+    "\    "step_out" : "<F4>",
+    "\    "close" : "<F6>",
+    "\    "detach" : "<F7>",
+    "\    "set_breakpoint" : "<F10>",
+    "\    "get_context" : "<F11>",
+    "\    "eval_under_cursor" : "<F12>",
+    "\    "eval_visual" : "<Leader>e",
+    "\}
+
+Plug 'rking/ag.vim'
+Plug 'Chun-Yang/vim-action-ag'
+Plug 'junegunn/fzf'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+    let g:rg_command = '
+      \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+      \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+      \ -g "!{.git,node_modules,vendor}/*" '
+
+    command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+
+    " Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+    "command! -bang -nargs=* Rg
+      "\ call fzf#vim#grep(
+      "\   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+      "\   <bang>0 ? fzf#vim#with_preview('up:60%')
+      "\           : fzf#vim#with_preview('right:50%:hidden', '?'),
+      "\   <bang>0)
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'Slava/vim-spacebars'
+Plug 'posva/vim-vue'
+Plug 'fatih/vim-go'
+Plug 'lumiliet/vim-twig'
 
 call plug#end()
 
@@ -120,7 +192,8 @@ nmap <silent> <C-n> :noh<CR>
 set t_Co=256
 colorscheme base16-eighties
 hi CursorLineNR cterm=bold ctermfg=100
-"set path=$PWD/**
+set fillchars+=vert:│
+highlight VertSplit ctermbg=NONE guibg=NONE
 
 """ Shortcuts =====================
 let mapleader = ","
@@ -143,6 +216,10 @@ vnoremap <leader>a :Tabularize /
 " Classic backspace
 set backspace=indent,eol,start
 
+" fzf
+nnoremap <leader>o :Files<CR>
+nnoremap <leader><space> :Buffers<CR>
+
 " Line shifting with Opt+j/k
 nnoremap ∆ :m .+1<CR>==
 nnoremap ˚ :m .-2<CR>==
@@ -164,3 +241,24 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" nerdcommenter - vue compat
+" doesn't really work
+"fu! NERDCommenter_before()
+  "if &ft == 'vue'
+    "let g:ft = 'vue'
+    "let stack = synstack(line('.'), col('.'))
+    "if len(stack) > 0
+      "let syn = synIDattr((stack)[0], 'name')
+      "if len(syn) > 0
+        "let syn = tolower(syn)
+        "exe 'setf '.syn
+      "endif
+    "endif
+  "endif
+"endfu
+"fu! NERDCommenter_after()
+  "if g:ft == 'vue'
+    "setf vue
+    "g:ft
+  "endif
+"endfu
