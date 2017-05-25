@@ -51,6 +51,7 @@ Plug 'Shougo/neosnippet.vim'
     xmap <C-k> <Plug>(neosnippet_expand_target)
 Plug 'Shougo/neosnippet-snippets'
 Plug 'shawncplus/phpcomplete.vim'
+Plug 'chriskempson/base16-vim'
 Plug 'vim-airline/vim-airline'
     set laststatus=2
     let g:airline_theme='base16'
@@ -189,7 +190,8 @@ set hidden
 set tabstop=4 shiftwidth=4 expandtab
 set hlsearch is ignorecase scs
 nmap <silent> <C-n> :noh<CR>
-set t_Co=256
+"set t_Co=256
+"let base16colorspace=256
 colorscheme base16-eighties
 hi CursorLineNR cterm=bold ctermfg=100
 set fillchars+=vert:│
