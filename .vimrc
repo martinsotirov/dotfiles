@@ -132,7 +132,7 @@ Plug 'joonty/vdebug'
     let g:vdebug_options["break_on_open"] = 0
     "let g:vdebug_options["path_maps"]['/var/www/server/']='/Users/msotirov/Sites/inventory/server/'
     "let g:vdebug_options["path_maps"]['/var/www/nawik_de/src/']='/Users/msotirov/Sites/nawik/nawik_de/src/'
-    let g:vdebug_options["path_maps"]['/var/www/src/']='/Users/msotirov/Sites/pubnative2/src/'
+    "let g:vdebug_options["path_maps"]['/var/www/src/']='/Users/msotirov/Sites/pubnative2/src/'
     let g:vdebug_keymap = {
     \   'run'            : "<Leader>r",
     \   'close'          : "<Leader>c",
@@ -194,6 +194,26 @@ colorscheme base16-eighties
 hi CursorLineNR cterm=bold ctermfg=100
 set fillchars+=vert:│
 highlight VertSplit ctermbg=NONE guibg=NONE
+
+""" Drupal Support ================
+if has("autocmd")
+    " Uncomment the following to have Vim jump to the last position when
+    " reopening a file
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+    " Set Drupal files as php
+    augroup module
+        autocmd BufRead,BufNewFile *.module set filetype=php
+        autocmd BufRead,BufNewFile *.php set filetype=php
+        autocmd BufRead,BufNewFile *.install set filetype=php
+        autocmd BufRead,BufNewFile *.test set filetype=php
+        autocmd BufRead,BufNewFile *.inc set filetype=php
+        autocmd BufRead,BufNewFile *.profile set filetype=php
+        autocmd BufRead,BufNewFile *.theme set filetype=php
+    augroup END
+    " Source vimrc file after saving it
+    " autocmd bufwritepost .vimrc source $MYVIMRC
+endif
 
 """ Shortcuts =====================
 let mapleader = ","
