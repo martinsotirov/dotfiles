@@ -1,0 +1,24 @@
+set relativenumber
+set cursorline
+set surround
+set hlsearch is ignorecase scs
+set tabstop=4 shiftwidth=4 expandtab
+
+""" Shortcuts =====================
+let mapleader = ","
+let maplocalleader = ","
+inoremap jk <esc>
+nmap <silent> <C-n> :noh<CR>
+
+" Classic Tab indents
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+" Switch splits easier
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
