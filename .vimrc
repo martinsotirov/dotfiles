@@ -127,12 +127,14 @@ Plug 'majutsushi/tagbar'
     nmap <leader>te :TagbarOpenAutoClose<CR>
 Plug 'joonty/vdebug'
     let g:vdebug_options = {
-    \   "path_maps": {}
+    \   "path_maps": {},
+    \   "break_on_open": 0
     \}
-    let g:vdebug_options["break_on_open"] = 0
+    "let g:vdebug_options["break_on_open"] = 0
     "let g:vdebug_options["path_maps"]['/var/www/server/']='/Users/msotirov/Sites/inventory/server/'
     "let g:vdebug_options["path_maps"]['/var/www/nawik_de/src/']='/Users/msotirov/Sites/nawik/nawik_de/src/'
     "let g:vdebug_options["path_maps"]['/var/www/src/']='/Users/msotirov/Sites/pubnative2/src/'
+    let g:vdebug_options["path_maps"]['/var/www/html']='/Users/msotirov/Sites/dbue/wordpress/'
     let g:vdebug_keymap = {
     \   'run'            : "<Leader>r",
     \   'close'          : "<Leader>c",
@@ -177,6 +179,7 @@ Plug 'Slava/vim-spacebars'
 Plug 'posva/vim-vue'
 Plug 'fatih/vim-go'
 Plug 'lumiliet/vim-twig'
+Plug 'tpope/vim-surround'
 
 call plug#end()
 
