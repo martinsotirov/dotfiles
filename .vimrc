@@ -132,14 +132,13 @@ Plug 'joonty/vdebug'
     \}
     "let g:vdebug_options["break_on_open"] = 0
     "let g:vdebug_options["path_maps"]['/var/www/server/']='/Users/msotirov/Sites/inventory/server/'
-    "let g:vdebug_options["path_maps"]['/var/www/nawik_de/src/']='/Users/msotirov/Sites/nawik/nawik_de/src/'
-    "let g:vdebug_options["path_maps"]['/var/www/src/']='/Users/msotirov/Sites/pubnative2/src/'
-    let g:vdebug_options["path_maps"]['/var/www/html']='/Users/msotirov/Sites/dbue/wordpress/'
-    let g:vdebug_keymap = {
-    \   'run'            : "<Leader>r",
-    \   'close'          : "<Leader>c",
-    \   'set_breakpoint' : "<Leader>b"
-    \}
+    "let g:vdebug_options["path_maps"]['/var/www/html']='/Users/msotirov/Sites/dbue/wordpress/'
+    let g:vdebug_options["path_maps"]['/var/www/wordpress/']='/Users/msotirov/Sites/rne/wordpress/'
+    "let g:vdebug_keymap = {
+    "\   'run'            : "<Leader>r",
+    "\   'close'          : "<Leader>c",
+    "\   'set_breakpoint' : "<Leader>b"
+    "\}
 
     "let g:vdebug_keymap = {
     "\    "run" : "<F5>",
@@ -167,19 +166,14 @@ Plug 'junegunn/fzf.vim'
 
     command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
-    " Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
-    "command! -bang -nargs=* Rg
-      "\ call fzf#vim#grep(
-      "\   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-      "\   <bang>0 ? fzf#vim#with_preview('up:60%')
-      "\           : fzf#vim#with_preview('right:50%:hidden', '?'),
-      "\   <bang>0)
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'Slava/vim-spacebars'
 Plug 'posva/vim-vue'
 Plug 'fatih/vim-go'
 Plug 'lumiliet/vim-twig'
 Plug 'tpope/vim-surround'
+Plug 'Quramy/vim-js-pretty-template'
+Plug 'pangloss/vim-javascript'
 
 call plug#end()
 
@@ -197,6 +191,10 @@ colorscheme base16-eighties
 hi CursorLineNR cterm=bold ctermfg=100
 set fillchars+=vert:│
 highlight VertSplit ctermbg=NONE guibg=NONE
+
+""" Swap files ===================
+set backupdir=./.backup,.,/tmp
+set directory=.,./.backup,/tmp
 
 """ Drupal Support ================
 if has("autocmd")
@@ -225,9 +223,9 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 iabbrev @@ martin@evil.ninja
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
-vnoremap " di"<esc>pa"<esc>
+"vnoremap " di"<esc>pa"<esc>
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
-vnoremap ' di'<esc>pa'<esc>
+"vnoremap ' di'<esc>pa'<esc>
 inoremap jk <esc>
 inoremap <esc> <nop>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
