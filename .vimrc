@@ -1,49 +1,61 @@
 "" Plugins ========================
 call plug#begin('~/.vim/plugged')
 
+" tabular
 Plug 'godlygeek/tabular'
-Plug 'Shougo/neocomplete.vim'
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
-    " Use neocomplete.
-    let g:neocomplete#enable_at_startup = 1
-    " Use smartcase.
-    let g:neocomplete#enable_smart_case = 1
-    " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-    let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
 
-    " Define keyword.
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" deocomplete
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-        return pumvisible() ? "\<C-y>" : "\<CR>"
-    endfunction
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    " Close popup by <Space>.
-    inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+"Plug 'Shougo/neocomplete.vim'
+    "" Disable AutoComplPop.
+    "let g:acp_enableAtStartup = 0
+    "" Use neocomplete.
+    "let g:neocomplete#enable_at_startup = 1
+    "" Use smartcase.
+    "let g:neocomplete#enable_smart_case = 1
+    "" Set minimum syntax keyword length.
+    "let g:neocomplete#sources#syntax#min_keyword_length = 3
+    "let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+    "let g:neocomplete#fallback_mappings = ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
 
-    " Enable omni completion.
-    set omnifunc=syntaxcomplete#Complete
+    "" Define keyword.
+    "if !exists('g:neocomplete#keyword_patterns')
+        "let g:neocomplete#keyword_patterns = {}
+    "endif
+    "let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-    " Enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-        let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    "" Plugin key-mappings.
+    "inoremap <expr><C-g>     neocomplete#undo_completion()
+    "inoremap <expr><C-l>     neocomplete#complete_common_string()
+    "" <CR>: close popup and save indent.
+    "inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    "function! s:my_cr_function()
+        "return pumvisible() ? "\<C-y>" : "\<CR>"
+    "endfunction
+    "" <TAB>: completion.
+    "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    "" <C-h>, <BS>: close popup and delete backword char.
+    "inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    "" Close popup by <Space>.
+    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+    "" Enable omni completion.
+    "set omnifunc=syntaxcomplete#Complete
+
+    "" Enable heavy omni completion.
+    "if !exists('g:neocomplete#sources#omni#input_patterns')
+        "let g:neocomplete#sources#omni#input_patterns = {}
+    "endif
+    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 Plug 'Shougo/neosnippet.vim'
     imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -71,7 +83,8 @@ Plug 'scrooloose/syntastic'
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
     let g:syntastic_aggregate_errors = 1
-    let g:syntastic_php_checkers = ['php']
+    let g:syntastic_php_checkers = []
+    let g:syntastic_csslint_args="--ignore=order-alphabetical"
     let g:syntastic_javascript_checkers = ['eslint']
     let g:syntastic_javascript_eslint_exec = 'eslint_d'
     "let g:syntastic_go_checkers = ['gometalinter']
@@ -103,7 +116,7 @@ Plug 'scrooloose/nerdtree'
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif""""
-    let g:NERDTreeIgnore=['node_modules']
+    let g:NERDTreeIgnore=['node_modules', '.*.swp']
     let g:NERDTreeWinSize=23
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
