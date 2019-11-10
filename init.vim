@@ -1,6 +1,7 @@
 "" Plugins ========================
 call plug#begin('~/.vim/plugged')
 
+Plug 'zerowidth/vim-copy-as-rtf'
 Plug 'godlygeek/tabular'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     " enable deoplete
@@ -26,6 +27,12 @@ Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
 
 " JavaScript autocomplete source
 Plug 'carlitux/deoplete-ternjs', { 'do': 'sudo npm install -g tern' }
+    let g:deoplete#sources#ternjs#filetypes = [
+        \ 'jsx',
+        \ 'javascript.jsx',
+        \ 'vue',
+        \ 'ts'
+        \ ]
 
 " Go autocomplete source
 Plug 'zchee/deoplete-go', { 'do': 'make'}
@@ -62,10 +69,17 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+    let g:fzf_commits_log_options = '--graph --color=always
+            \ --format="%C(yellow)%h%C(red)%d%C(reset)
+            \ - %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)"'
 Plug 'mileszs/ack.vim'
     if executable('ag')
       let g:ackprg = 'ag --vimgrep'
     endif
+Plug 'mhinz/vim-grepper'
+    nnoremap <leader>g :GrepperRg<Space>
+    nnoremap gr :Grepper -cword -noprompt<CR>
+    xmap gr <plug>(GrepperOperator)
 Plug 'tpope/vim-surround'
 Plug 'ludovicchabant/vim-gutentags'
     set statusline+=%{gutentags#statusline()}
@@ -83,24 +97,30 @@ Plug 'w0rp/ale'
   \   'js': ['eslint'],
   \   'jsx': ['eslint'],
   \   'vue': ['eslint'],
+  \   'php': ['langserver', 'phan', 'php', 'phpcs', 'phpmd', 'phpstan', 'psalm'],
   \}
   " Run both javascript and vue linters for vue files.
   let g:ale_linter_aliases = {'vue': ['javascript', 'vue']}
+  let g:ale_php_phpcs_use_global = 1
   let g:ale_fixers = {
   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
   \   'php': ['php_cs_fixer'],
   \   'js': ['eslint'],
   \}
 
+
 " Language support
 Plug 'pangloss/vim-javascript'
 Plug 'Quramy/vim-js-pretty-template'
 Plug 'posva/vim-vue'
+" Always rehighlight Vue files when opening
+autocmd FileType vue syntax sync fromstart
 Plug 'fatih/vim-go'
 Plug 'StanAngeloff/php.vim'
 Plug 'lumiliet/vim-twig'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'metakirby5/codi.vim'
+Plug 'mattn/webapi-vim'
 Plug 'rust-lang/rust.vim'
 Plug 'joonty/vdebug'
     let g:vdebug_options = {
@@ -108,6 +128,14 @@ Plug 'joonty/vdebug'
     \   "break_on_open": 0
     \}
     let g:vdebug_options["path_maps"]['/var/www/app/']='/Users/msotirov/Sites/dapp-vagrant/app/'
+
+Plug 'janko/vim-test'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'thosakwe/vim-flutter'
+Plug 'rstacruz/vim-closer'
+Plug 'Yggdroot/indentLine'
 
 call plug#end()
 
@@ -126,6 +154,7 @@ autocmd Filetype yaml setlocal ts=2 sw=2 expandtab
 autocmd Filetype json setlocal ts=2 sw=2 expandtab
 autocmd Filetype cucumber setlocal ts=2 sw=2 expandtab
 au BufNewFile,BufRead,BufReadPost *.xml.dist set syntax=XML
+au BufNewFile,BufRead,BufReadPost *.html.tera set syntax=twig
 
 set hlsearch is ignorecase scs
 nmap <silent> <C-n> :noh<CR>
@@ -190,4 +219,10 @@ nnoremap <C-l> <C-w>l
 " fzf
 nnoremap <leader>o :Files<CR>
 nnoremap <leader><space> :Buffers<CR>
+nnoremap <leader>r :Rg<CR>
+nnoremap <leader>! :Rg!<CR>
+nnoremap <leader>c :Commits<CR>
+nnoremap <leader>b :BCommits<CR>
 
+" Align on paste
+:nnoremap p p=`]
