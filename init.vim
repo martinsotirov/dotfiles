@@ -63,10 +63,10 @@ Plug 'junegunn/fzf.vim'
     let g:fzf_commits_log_options = '--graph --color=always
             \ --format="%C(yellow)%h%C(red)%d%C(reset)
             \ - %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)"'
-Plug 'mileszs/ack.vim'
-    if executable('ag')
-      let g:ackprg = 'ag --vimgrep'
-    endif
+"Plug 'mileszs/ack.vim'
+    "if executable('ag')
+      "let g:ackprg = 'ag --vimgrep'
+    "endif
 Plug 'mhinz/vim-grepper'
     nnoremap <leader>g :GrepperRg<Space>
     nnoremap gr :Grepper -cword -noprompt<CR>
@@ -195,8 +195,24 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 inoremap jk <esc>
 inoremap <esc> <nop>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-nnoremap <leader>f :Ack!<Space>
-nnoremap <leader>F :AckFromSearch<cr>
+
+" custom search command
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+nnoremap <leader>f :Find<Space>
+nnoremap \ :Find<Space>
+
+"nnoremap <leader>f :Ack!<Space>
+"nnoremap <leader>F :AckFromSearch<cr>
 
 " Tabular
 nnoremap <leader>a :Tabularize /
