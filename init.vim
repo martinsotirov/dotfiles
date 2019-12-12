@@ -3,26 +3,17 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'zerowidth/vim-copy-as-rtf'
 Plug 'godlygeek/tabular'
+
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    " enable deoplete
     let g:deoplete#enable_at_startup = 1
-
-    " use <Tab> to advance selection
-    inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ deoplete#mappings#manual_complete()
-    function! s:check_back_space() abort "{{{
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction"}}}
-
-    " use phpcd for PHP autocompletion
-    "let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-    "let g:deoplete#ignore_sources.php = ['phpcd', 'omni']
+    let g:LanguageClient_serverCommands = {
+    \ 'vue': ['vls'],
+    \ }
 
 " PHP autocomplete source
-"Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
 
 " JavaScript autocomplete source
@@ -92,7 +83,7 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-abolish'
 Plug 'Raimondi/delimitMate'
 Plug 'mattn/emmet-vim'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
   let g:ale_linters = {
   \   'js': ['eslint'],
   \   'jsx': ['eslint'],
@@ -134,8 +125,10 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'thosakwe/vim-flutter'
-Plug 'rstacruz/vim-closer'
 Plug 'Yggdroot/indentLine'
+Plug 'tveskag/nvim-blame-line'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
@@ -153,6 +146,7 @@ autocmd Filetype vue setlocal ts=2 sw=2 expandtab
 autocmd Filetype yaml setlocal ts=2 sw=2 expandtab
 autocmd Filetype json setlocal ts=2 sw=2 expandtab
 autocmd Filetype cucumber setlocal ts=2 sw=2 expandtab
+autocmd Filetype typescript setlocal ts=2 sw=2 expandtab
 au BufNewFile,BufRead,BufReadPost *.xml.dist set syntax=XML
 au BufNewFile,BufRead,BufReadPost *.html.tera set syntax=twig
 
@@ -226,3 +220,8 @@ nnoremap <leader>b :BCommits<CR>
 
 " Align on paste
 :nnoremap p p=`]
+
+" snippet expansion
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
