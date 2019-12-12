@@ -155,8 +155,13 @@ nmap <silent> <C-n> :noh<CR>
 hi CursorLineNR cterm=bold ctermfg=100
 set fillchars+=vert:│
 highlight VertSplit ctermbg=NONE guibg=NONE
-colorscheme base16-eighties
 set fileencoding=utf8
+colorscheme base16-eighties
+
+" set the color theme via the iTerm theme
+if has("nvim")
+    set termguicolors
+endif
 
 """ Swap files ===================
 set backupdir=~/.vim/swap
