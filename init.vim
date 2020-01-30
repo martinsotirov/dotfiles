@@ -88,11 +88,15 @@ Plug 'dense-analysis/ale'
   \   'js': ['eslint'],
   \   'jsx': ['eslint'],
   \   'vue': ['eslint'],
-  \   'php': ['langserver', 'phan', 'php', 'phpcs', 'phpmd', 'phpstan', 'psalm'],
+  \   'php': ['php', 'phpcs'],
   \}
   " Run both javascript and vue linters for vue files.
   let g:ale_linter_aliases = {'vue': ['javascript', 'vue']}
   let g:ale_php_phpcs_use_global = 1
+  let g:ale_php_phpcs_standard = 'PSR2'
+  let g:ale_php_phpcs_executable = '/Users/martin/.composer/vendor/bin/phpcs'
+  let g:ale_php_cs_fixer_executable = '/Users/martin/.composer/vendor/bin/php-cs-fixer'
+  let g:ale_php_cs_fixer_use_global = 1
   let g:ale_fixers = {
   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
   \   'php': ['php_cs_fixer'],
