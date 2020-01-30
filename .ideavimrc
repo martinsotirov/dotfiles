@@ -22,3 +22,14 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" Switch alternate file / recent files
+nnoremap <C-6> :action Switcher<CR>
+nnoremap <leader><Space> :action Switcher<CR>
+
+" Go to terminal (tmux style)
+nnoremap <C-a>j :action ActivateTerminalToolWindow<CR>
+
+" Navigate menus
+inoremap <C-n> <Down>
+inoremap <C-p> <Up>
