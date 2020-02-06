@@ -33,3 +33,22 @@ nnoremap <C-a>j :action ActivateTerminalToolWindow<CR>
 " Navigate menus
 inoremap <C-n> <Down>
 inoremap <C-p> <Up>
+
+" comment out
+vnoremap <leader>c<space> :action CommentByLineComment<CR>
+nnoremap <leader>c<space> :action CommentByLineComment<CR>
+
+" search
+nnoremap <leader>f :action FindInPath<CR>
+nnoremap <leader>o :action SearchEverywhere<CR>
+
+" tabularize
+nnoremap <leader>a :action StringManipulation.AlignToColumns<CR>
+vnoremap <leader>a :action StringManipulation.AlignToColumns<CR>
+
+" change case
+nnoremap crc :action StringManipulation.ToSnakeCaseOrCamelCase<CR>
+nnoremap crs :action StringManipulation.ToSnakeCaseOrCamelCase<CR>
+nnoremap crm :action StringManipulation.ToPascalCaseOrCamelCase<CR>
+nnoremap crt :action StringManipulation.ToSentenceCaseOrCamelCase<CR>
+nnoremap cr- :action StringManipulation.ToHyphenCaseAction<CR>
