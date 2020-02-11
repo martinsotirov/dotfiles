@@ -1,3 +1,7 @@
+" enable IdeaVim features
+set surround
+
+" vim config
 set relativenumber
 set cursorline
 set surround
@@ -52,3 +56,9 @@ nnoremap crs :action StringManipulation.ToSnakeCaseOrCamelCase<CR>
 nnoremap crm :action StringManipulation.ToPascalCaseOrCamelCase<CR>
 nnoremap crt :action StringManipulation.ToSentenceCaseOrCamelCase<CR>
 nnoremap cr- :action StringManipulation.ToHyphenCaseAction<CR>
+
+" select file in sidebar
+nnoremap <leader>t :action SelectInProjectView<CR>
+
+" select next occurence
+map <M-G> :action SelectNextOccurrence<CR>
