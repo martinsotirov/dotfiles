@@ -234,7 +234,7 @@ let mapleader = ","
 let maplocalleader = ","
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
-iabbrev @@ martin@evil.ninja
+iabbrev @@ contact@martinsotirov.com
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 "vnoremap " di"<esc>pa"<esc>
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
