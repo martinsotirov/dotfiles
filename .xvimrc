@@ -22,3 +22,6 @@ nnoremap <C-l> <C-w>l
 
 " Align on paste
 :nnoremap p p=`]
+
+" quick open
+nnoremap ji :xcmenucmd Open Quickly...<CR>
