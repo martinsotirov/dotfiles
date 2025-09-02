@@ -133,6 +133,12 @@ Plug 'Yggdroot/indentLine'
 Plug 'tveskag/nvim-blame-line'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'hashivim/vim-terraform'
+    let g:terraform_align=1
+    let g:terraform_fmt_on_save=1
+    let g:terraform_binary_path="/usr/local/bin/terraform"
+Plug 'dag/vim-fish'
+
 
 call plug#end()
 
