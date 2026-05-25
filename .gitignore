@@ -55,5 +55,9 @@ Session.vim
 tags
 **/lazy-lock.json
 
+### Backups ###
+*.bak
+*.bak.*
+
 # End of https://www.gitignore.io/api/osx,vim,linux
 
